@@ -77,7 +77,7 @@ release=`lsb_release -r|awk '{print $2}'`
 if [[ $release == "16."* ]]; then
 	print_good "OS is Ubuntu. Good to go."
 else
-    print_notification "This is not Ubuntu 16.x, this autosnort script has NOT been tested on other platforms."
+    print_notification "This is not Ubuntu 16.x, this autoinstall script has NOT been tested on other platforms."
 	print_notification "You continue at your own risk!(Please report your successes or failures!)"
 fi
 
