@@ -7,7 +7,7 @@ fi
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
-gitdir=$PWD
+dir=$PWD
 
 ##Logging setup
 logfile=/var/log/elk_install.log
@@ -176,13 +176,20 @@ unzip beats-dashboards-*.zip &>> $logfile
 cd beats-dashboards-* &>> $logfile
 ./load.sh &>> $logfile
 echo
+
+
+##############
+##Put beats configuration here
+##############
+
+
 bash $dir/supporting_scripts/ELK_reload.sh &>> $logfile
 mkdir /$HOME/clientinstall.$HOSTNAME &>> $logfile
-cp -r $dir/packetbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
-cp -r $dir/filebeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
-cp -r $dir/metricbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
-cp -r $dir/topbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
-cp -r $dir/winlogbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
+cp -r $dir/beats/packetbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
+cp -r $dir/beats/filebeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
+cp -r $dir/beats/metricbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
+cp -r $dir/beats/topbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
+cp -r $dir/beats/winlogbeat/ /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
 cp /etc/pki/tls/certs/logstash-forwarder.crt /$HOME/clientinstall.$HOSTNAME/ &>> $logfile
 bash $dir/supporting_scripts/sof-elk_setup.sh &>> $logfile
 bash $dir/supporting_scripts/test.sh &>> $logfile
