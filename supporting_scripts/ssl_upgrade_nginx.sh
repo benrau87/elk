@@ -91,7 +91,7 @@ error_check 'Nginx installed'
 mkdir /etc/nginx/ssl &>> $logfile
 cd /etc/nginx/ssl &>> $logfile
 print_status "${YELLOW}Configuring and installing SSL keys...go get a sandwich${NC}"
-openssl req -subj '/CN=Kibana/'-x509 -nodes -days 3650 -newkey rsa:4096 -keyout kibana.key -out kibana.crt &>> $logfile
+openssl req -subj '/CN=Kibana_webui/'-x509 -nodes -days 3650 -newkey rsa:4096 -keyout kibana.key -out kibana.crt &>> $logfile
 openssl dhparam -out dhparam.pem 4096 &>> $logfile
 error_check 'SSL configured'
 cd ..
@@ -105,7 +105,7 @@ print_status "${YELLOW}Configuring Nginx webserver...${NC}"
 tee -a /tmp/kibana <<EOF
   server {
   
-        listen 443 ssl;
+        listen *:443 ssl;
         server_name $HOSTNAME;
         ssl_certificate /etc/nginx/ssl/kibana.crt;
         ssl_certificate_key /etc/nginx/ssl/kibana.key;
